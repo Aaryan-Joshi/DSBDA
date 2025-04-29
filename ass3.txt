@@ -1,0 +1,68 @@
+import pandas as pd
+import numpy as np
+
+df=pd.read_csv('iris.csv')
+
+df
+
+df.shape
+
+df.isnull().sum()
+
+df.dtypes
+
+df.info()
+
+df.drop(columns='Id',inplace=True)
+df
+
+df.min(numeric_only=True)
+
+df.select_dtypes(include='object').min()
+
+df.max(numeric_only=True)
+
+df.select_dtypes(include='object').max()
+
+# df.quantile(0.25)
+df.quantile(0.25, numeric_only=True)
+
+# df.quantile(0.50)
+df.quantile(0.50, numeric_only=True)
+
+# df.quantile(0.75)
+df.quantile(0.75, numeric_only=True)
+
+df.mean(numeric_only=True)
+
+df.std(numeric_only=True)
+
+
+import pandas as pd
+import numpy as np
+import statistics as st
+
+df = pd.read_csv("loan.csv");
+
+df.shape
+
+df.info()
+
+df['LoanAmount'].groupby(df['Gender']).describe()
+
+df = df.apply(pd.to_numeric, errors='coerce')
+df.mean()
+#Try to convert every column's values to numeric types (int, float).
+#If a value cannot be converted (e.g., a string like "apple"), it will be replaced with NaN
+
+df.max()
+
+df.min()
+
+df.median()
+
+df.std()
+
+df.loc[:,'LoanAmount'].mean()
+
+df.mean(axis = 1)[0:5]
