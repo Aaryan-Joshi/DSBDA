@@ -1,0 +1,41 @@
+%%writefile avg_weather.py
+from mrjob.job import MRJob
+
+class MRAverageWeather(MRJob):
+
+    def mapper(self, _, line):
+        if line.startswith('Date'):  # Skip header
+            return
+
+        columns = line.split()
+        if len(columns) >= 4:
+            try:
+                temperature = float(columns[1])
+                dew_point = float(columns[2])
+                wind_speed = float(columns[3])
+                yield ("weather", (temperature, dew_point, wind_speed, 1))
+            except ValueError:
+                pass
+
+    def reducer(self, key, values):
+        total_temp = 0
+        total_dew_point = 0
+        total_wind_speed = 0
+        count = 0
+
+        for temperature, dew_point, wind_speed, _ in values:
+            total_temp += temperature
+            total_dew_point += dew_point
+            total_wind_speed += wind_speed
+            count += 1
+
+        if count > 0:
+            avg_temp = total_temp / count
+            avg_dew_point = total_dew_point / count
+            avg_wind_speed = total_wind_speed / count
+            yield ("Average", (avg_temp, avg_dew_point, avg_wind_speed))
+        else:
+            yield ("Average", (None, None, None))
+
+if __name__ == '__main__':
+    MRAverageWeather.run()
