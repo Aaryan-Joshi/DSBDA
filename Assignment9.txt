@@ -1,0 +1,65 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+#%matplotlib inline
+import seaborn as sns
+
+df=pd.read_csv("titanic.csv")
+
+df
+
+df.shape
+
+df.columns
+
+df.dtypes
+
+df.info()
+
+df.isnull()
+
+df.isnull().sum()
+
+df.describe()
+
+# sns.countplot(df["Sex"]) 
+sns.countplot(x=df["Sex"])
+plt.show()
+
+# sns.countplot(df['Survived'])
+sns.countplot(x=df["Survived"])
+plt.show()
+
+df['Sex'].value_counts().plot(kind='pie',autopct='%.2f')
+
+df['Survived'].value_counts().plot(kind='pie',autopct='%.2f')
+
+sns.barplot(x=df['Survived'], y=df['Age'])
+plt.show()
+
+sns.barplot(x=df['Sex'], y=df['Survived'])
+plt.show()
+
+sns.barplot(x=df['Sex'],y=df['Age'],hue=df['Survived'])
+plt.show()
+
+sns.boxplot(x=df['Sex'],y=df['Age'])
+plt.show()
+
+sns.boxplot(x=df['Sex'], y=df['Age'], hue=df['Survived'])
+plt.show()
+
+pd.crosstab(df['Sex'],df['Survived']) # 0=dead, 1=survived crosstab=pandas func for cross tabulating two categorical var
+
+pd.crosstab(df['Age'],df['Survived'])
+
+# sns.heatmap(pd.crosstab(df['Sex'],df['Survived']))
+sns.heatmap(pd.crosstab(df['Sex'], df['Survived']), annot=False)
+plt.show()
+
+sns.heatmap(pd.crosstab(df['Age'],df['Survived']))
+
+sns.clustermap(pd.crosstab(df['Sex'],df['Survived']))#heatmap+clusters the rows and columns based on how similar they are.
+
+sns.clustermap(pd.crosstab(df['Age'],df['Survived']))
+

@@ -1,0 +1,37 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+#%matplotlib inline
+import seaborn as sns
+
+df=pd.read_csv("titanic.csv")
+
+df
+
+sns.displot(df['Pclass'], kde=True)
+plt.show()
+
+sns.displot(df['Age'],kde=True)
+
+sns.displot(x=df['Age'],bins=40, kde=True) 
+
+sns.displot(df['Age'],bins=40,kde=False,rug=True)
+
+sns.jointplot(x=df['Age'],y=df['Fare'],kind='scatter') 
+# Bivariate distribuition
+# Join Plot : It joins two plot : 
+# scatter plot : which tells distribuition of two vars and two histogram : which tells distribuition of each var
+
+sns.jointplot(x=df['Age'],y=df['Fare'],kind='hex')
+
+sns.barplot(x=df['Sex'],y=df['Fare']) # It plots the mean of categorical values
+
+# sns.countplot(df['Pclass'])
+sns.countplot(x=df['Pclass'])  # It plots the count of categorical values
+
+# sns.displot(df['Fare'],kde=True)
+sns.displot(df['Fare'],kde=True)
+
+sns.rugplot(df['Fare'])
+plt.show()
+

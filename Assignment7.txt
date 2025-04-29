@@ -1,0 +1,58 @@
+from textblob import TextBlob
+import nltk
+
+nltk.download("punkt")
+
+import nltk
+
+from nltk import tokenize
+nltk.download('punkt_tab')
+from nltk.tokenize import word_tokenize
+from nltk.tokenize import sent_tokenize
+b1=TextBlob("heelloo hoe are u doing."
+"my name is shruti.""im a btech student")
+
+b1.words
+
+b1.sentences
+b1.upper()
+b2=TextBlob("cat dog camel")
+b2.words.pluralize()
+
+b2=TextBlob("cats dogs camels")
+b2.words.singularize()
+
+text="heelloo, how are u doing? my name is shruti. im a btech student,i've being studying btech "
+token_sent=sent_tokenize(text)
+print(token_sent)
+
+token_words=word_tokenize(text)
+print(token_words)
+
+import nltk
+nltk.download('stopwords')
+nltk.download('wordnet')
+
+from nltk.corpus import stopwords
+stop_words=set(stopwords.words("english"))
+print(stop_words)
+
+Filtered_words=[]
+for w in token_words:
+  if w not in stop_words:
+    Filtered_words.append(w)
+print(Filtered_words)
+
+from nltk.stem import PorterStemmer
+from nltk.stem.wordnet import WordNetLemmatizer
+
+ps=PorterStemmer()
+lem=WordNetLemmatizer()
+steming_words=[]
+lem_words=[]
+for w in Filtered_words:
+  steming_words.append(ps.stem(w))
+  lem_words.append(lem.lemmatize(w,"v"))
+print(steming_words)
+print(lem_words)
+
