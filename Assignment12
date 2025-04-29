@@ -1,0 +1,25 @@
+%%writefile log_processor.py
+from mrjob.job import MRJob
+
+class LogFileProcessor(MRJob):
+
+    def mapper(self, _, line):
+        try:
+            # No decoding needed in Colab, line is already str
+            parts = line.split(' ', 2)
+            if len(parts) >= 2:
+                log_level = parts[1]
+                yield (log_level, 1)
+            else:
+                yield ("MALFORMED", 1)
+        except Exception as e:
+            yield ("ERROR", 1)
+
+    def reducer(self, key, values):
+        try:
+            yield (key, sum(values))
+        except Exception as e:
+            yield ("ERROR", 1)
+
+if __name__ == '__main__':
+    LogFileProcessor.run()
